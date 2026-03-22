@@ -1,0 +1,27 @@
+# --- Fortran Junk ---
+*.o
+*.mod
+*.smod
+*.out
+*.exe
+
+# --- Python Junk ---
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+.env
+
+# --- Simulation Data (The big stuff) ---
+*.xyz
+*.csv
+*.dat
+*.log
+*.out
+
+# --- OS/Editor Junk ---
+.DS_Store
+Thumbs.db
+.vscode/
+.history
+simulator/
