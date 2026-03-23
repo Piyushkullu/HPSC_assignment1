@@ -18,3 +18,18 @@ updater_function.o : updater_function.f90
 
 simulator_fortran.o : simulator_fortran.f90
 	gfortran -c simulator_fortran.f90
+
+clean :
+	rm -f *.o *.mod simulator_fortran.exe simulation.xyz
+
+PYTHON = ./simulator/bin/python3
+free_fall:
+	@echo "--- Swapping to Free Fall Constants ---"
+	cp free_fall_constants.f90 constants.f90
+	@echo "--- Recompiling ---"
+	$(MAKE) clean
+	$(MAKE) simulation.xyz
+	@echo "--- Generating Plot ---"
+	$(PYTHON) plot_free_fall.py
+	@echo "--- Done! Check free_fall_plot.png ---"
+

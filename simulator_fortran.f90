@@ -19,10 +19,10 @@ program simulator_fortran
     ! Calculate the initial force
     call calc_force(positions,velocity,force)
     ! simulating for various time t
-    call output_file_generator(positions, 0.0_4)
+    call output_file_generator(positions, 0.0_wp)
     do step = 2,total_steps
        call updater_function(positions,velocity,force)
-       if (MOD(step,10)==0) then
+       if (MOD(step,no_of_frames_to_skip)==0) then
           call output_file_generator(positions,step*dt)
         end if
     end do
