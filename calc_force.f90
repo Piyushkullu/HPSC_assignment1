@@ -1,12 +1,17 @@
-subroutine cal_force(pos,vel,force)
+subroutine calc_force(pos,vel,force)
         use constants
         implicit none
-        real(kind = 8), dimension(3,N), intent(in) :: pos
-        real(kind = 8), dimension(3,N), intent(in) :: vel
-        real(kind = 8), dimension(3,N), intent(out) :: force
-        real(kind = 8) :: dij,delta,spring_force_particle,spring_force_wall,rel_vel_to_wall,v_approach
-        real(kind = 8), dimension(3) :: rij,rij_unit
+        real(kind = wp), dimension(3,N), intent(in) :: pos
+        real(kind = wp), dimension(3,N), intent(in) :: vel
+        real(kind = wp), dimension(3,N), intent(out) :: force
+        real(kind = wp), dimension(3) :: net_force
+        real(kind = wp) :: v_approach,rel_vel_to_wall,d,dij,delta,spring_force_particle,spring_force_wall,damping_force_particle
+        real(kind = wp) :: damping_force_wall
+        real(kind = wp), dimension(3) :: rij,rij_unit
+        integer :: particle, another_particle, co_ord
         force(3,:) = -mass*g
+        force(1,:) = 0
+        force(2,:) = 0
         do particle = 1,N
             ! wall force computation
             do co_ord =1,3
@@ -23,7 +28,7 @@ subroutine cal_force(pos,vel,force)
                 damping_force_wall = -damping_wall*rel_vel_to_wall
                 force(co_ord,particle) = force(co_ord,particle) +spring_force_wall + damping_force_wall
             end do
-            do another_particle = particle+1,N:
+            do another_particle = particle+1,N
                 rij = pos(:,another_particle)-pos(:,particle)! position of J th wrt i th particle
                 dij = norm2(rij)
                 rij_unit = rij/dij
@@ -38,5 +43,6 @@ subroutine cal_force(pos,vel,force)
                 net_force = spring_force_particle*(-rij_unit) +damping_force_particle*(-rij_unit) 
                 force(:,particle) = force(:,particle)+ net_force
                 force(:,another_particle) = force(:,another_particle)-net_force
+            end do
         end do
-end subroutine cal_force
+end subroutine calc_force
