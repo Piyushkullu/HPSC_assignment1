@@ -1,8 +1,8 @@
 simulation.xyz : simulator_fortran.exe 
 	./simulator_fortran.exe
 
-simulator_fortran.exe : constants.o output_file_generator.o calc_force.o updater_function.o simulator_fortran.o
-	gfortran constants.o output_file_generator.o calc_force.o updater_function.o simulator_fortran.o -o simulator_fortran.exe
+simulator_fortran.exe : constants.o output_file_generator.o calc_force.o updater_function.o kinetic_energy_sub.o simulator_fortran.o
+	gfortran constants.o output_file_generator.o calc_force.o updater_function.o kinetic_energy_sub.o simulator_fortran.o -o simulator_fortran.exe
 
 constants.o : constants.f90
 	gfortran -c constants.f90
@@ -16,13 +16,20 @@ calc_force.o : calc_force.f90
 updater_function.o : updater_function.f90
 	gfortran -c updater_function.f90
 
+kinetic_energy_sub.o : kinetic_energy_sub.f90
+	gfortran -c kinetic_energy_sub.f90
+
 simulator_fortran.o : simulator_fortran.f90
 	gfortran -c simulator_fortran.f90
 
 clean :
-	rm -f *.o *.mod simulator_fortran.exe simulation.xyz
+	rm -f *.o *.png *.mod simulator_fortran.exe simulation.xyz kinetic.txt
 
 PYTHON = ./simulator/bin/python3
+kinetic:
+	$(PYTHON) kinetic_energy.py
+	@echo "--- Done plotting kinetic kinetic_energy ---"
+
 free_fall:
 	@echo "--- Swapping to Free Fall Constants ---"
 	cp free_fall_constants.f90 constants.f90

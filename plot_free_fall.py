@@ -9,7 +9,7 @@ no_of_frames_to_skip = int(lines_constants[6].split('no_of_frames_to_skip = ')[1
 print(dt,time)
 time_length = 1
 total_steps = int(np.ceil(time/dt))
-for k in range(2,total_steps+1):
+for k in range(1,total_steps+1):
      if k%no_of_frames_to_skip == 0:
           time_length+=1
 time_array = np.linspace(0,time,time_length)
@@ -37,3 +37,16 @@ plt.title('Free Fall of a Single Particle', fontsize=14)
 plt.grid(True)
 # # Save the plot instead of showing it (better for WSL/Makefiles)
 plt.savefig('free_fall_plot.png')
+######################################
+# creating Kinetic energy plot 
+with open("kinetic.txt",'r') as f:
+     lines = f.readlines()
+KE = [float(i) for i in lines]
+plt.figure(figsize=(8, 6))
+plt.plot(time_array,KE , 'b-', linewidth=2)
+plt.xlabel('Time (s)', fontsize=12)
+plt.ylabel('Kinetic energy', fontsize=12)
+plt.title('Free Fall of a Single Particle', fontsize=14)
+plt.grid(True)
+# # Save the plot instead of showing it (better for WSL/Makefiles)
+plt.savefig('Kinetic_energy_free_fall.png')

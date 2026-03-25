@@ -15,5 +15,7 @@ module constants
     real(kind=wp), parameter :: spring_constant_wall = 1000 !spring constant for the wall - particle interaction
     real(kind=wp), parameter :: spring_constant_particle = 1000 ! spring constant for the interaction between particles
     real(kind=wp), parameter :: damping_wall = 2 ! damping constant for the wall - particle interaction
+    integer, parameter :: output_unit_position = 10
+    integer, parameter :: kinetic_unit_position = 11
     real(kind=wp), parameter :: damping_particle = 0.1 ! damping constant for the particle - particle interaction
 end module constants
