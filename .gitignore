@@ -26,3 +26,6 @@ Thumbs.db
 .vscode/
 .history
 simulator/
+## paper
+paper/
+!paper/paper.tex
