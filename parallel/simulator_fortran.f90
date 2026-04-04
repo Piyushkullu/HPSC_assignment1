@@ -10,7 +10,7 @@ program simulator_fortran
     integer :: i,step
     real(kind = wp) :: KE
     total_steps = ceiling(simulation_time/dt)
-    !$ call omp_set_num_threads(num_threads)
+    
     ! Initializing the problem
     call random_seed()
     call random_number(positions)

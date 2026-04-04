@@ -21,7 +21,6 @@ subroutine calc_force(pos,vel,force)
         !$omp                    damping_force_particle, net_force)
         
         do particle = 1,N
-
             ! wall force computation
             do co_ord =1,3
                 d = pos(co_ord,particle)
