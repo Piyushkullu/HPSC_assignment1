@@ -29,3 +29,5 @@ simulator/
 ## paper
 paper/
 !paper/paper.tex
+## txt 
+*.txt
