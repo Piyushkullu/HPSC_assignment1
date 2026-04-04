@@ -15,7 +15,7 @@ subroutine calc_force(pos,vel,force)
         force(2,:) = 0
 
         !$ call omp_set_num_threads(num_threads)
-        !$omp parallel do schedule(dynamic) private(co_ord,d,rel_vel_to_wall,spring_force_wall, & 
+        !$omp do schedule(dynamic) private(co_ord,d,rel_vel_to_wall,spring_force_wall, & 
         !$omp                    damping_force_wall,another_particle,rij,dij, &
         !$omp                    rij_unit,delta, spring_force_particle, v_approach, &
         !$omp                    damping_force_particle, net_force)
@@ -64,5 +64,5 @@ subroutine calc_force(pos,vel,force)
                 force(3, another_particle) = force(3, another_particle) - net_force(3)
             end do
         end do
-        !$omp end parallel do
+        !$omp end do
 end subroutine calc_force

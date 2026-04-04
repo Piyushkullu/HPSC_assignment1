@@ -32,7 +32,7 @@ simulator_fortran.o : simulator_fortran.f90
 
 clean :
 	# Added gmon.out and profile_results.txt to the cleanup!
-	rm -f *.o *.png *.mod simulator_fortran.exe simulation.xyz kinetic.txt gmon.out profile_results.txt
+	rm -f *.o *.png  *.txt *.mod simulator_fortran.exe simulation.xyz kinetic.txt gmon.out profile_results.txt
 
 PYTHON = ../simulator/bin/python3
 kinetic:

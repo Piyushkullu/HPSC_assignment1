@@ -4,7 +4,7 @@ FC = gfortran
 # -g  : Debug symbols (Lets gprof see your subroutine names)
 # -pg : Enables profiling
 # -fopenmp : Enables parallel threads
-FCFLAGS = -O3 -fopenmp 
+FCFLAGS = -O3 -g -pg -fopenmp 
 
 simulation.xyz : simulator_fortran.exe 
 	./simulator_fortran.exe
@@ -31,7 +31,7 @@ simulator_fortran.o : simulator_fortran.f90
 	$(FC) $(FCFLAGS) -c simulator_fortran.f90
 
 clean :
-	rm -f *.o *.png *.mod simulator_fortran.exe simulation.xyz kinetic.txt gmon.out profile_results.txt
+	rm -f *.o *.png *.txt *.mod simulator_fortran.exe simulation.xyz kinetic.txt gmon.out profile_results.txt
 
 PYTHON = ../simulator/bin/python3
 kinetic:

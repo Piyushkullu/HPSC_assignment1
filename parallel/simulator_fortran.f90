@@ -29,20 +29,21 @@ program simulator_fortran
     ! open the simulation.xyz file
     open(unit=output_unit_position, file="simulation.xyz", position="append", status="unknown")
     call output_file_generator(positions, 0.0_wp)
- 
+   !$omp parallel
     do step = 1,total_steps
        call updater_function(positions,velocity,force)
        ! skiping 'no_of_frames_to_skip' number of iterations  to write the output 
+        !$omp single
        if (MOD(step,no_of_frames_to_skip)==0) then
-       
          call output_file_generator(positions,step*dt)
          call kinetic_energy(velocity,KE)
          write(kinetic_unit_position, *) KE
-      
         end if
+        !$omp end single
       end do
+   !$omp end parallel
    close(output_unit_position)
    close(kinetic_unit_position)
-
+   
 
 end program simulator_fortran
