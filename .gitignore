@@ -31,3 +31,4 @@ paper/
 !paper/paper.tex
 ## txt 
 *.txt
+constants.f90
