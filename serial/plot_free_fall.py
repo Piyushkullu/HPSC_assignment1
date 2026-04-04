@@ -28,22 +28,42 @@ while i < len(lines):
     
     i += 3# Jump to  next frame
 # Creating the theroetical plot
-z_positions_theo = np.zeros(len(time_array))
-time_array_theo = np.arange(0,np.sqrt(2*z_positions[0]/9.81),0.01)
+dummy = []
+for i in z_positions:
+     if i >= 0.1:
+          dummy += [i]
+     else:
+          break         
+z_positions = np.array(dummy,dtype = float)
+z_positions_theo = np.zeros(len(z_positions))
+time_array_theo = time_array[0:len(z_positions)]
 z_positions_theo = z_positions[0] - 0.5*9.81*time_array_theo**2
-
+print(z_positions_theo)
 # Create the simulation plot
 plt.figure(figsize=(8, 6))
-plt.plot(time_array, z_positions, 'b-', linewidth=2,label = 'Simulation')
+plt.plot(time_array_theo, z_positions, 'b-', linewidth=2,label = 'Simulation')
 plt.plot(time_array_theo,z_positions_theo,'r-',linewidth =2,label = 'Theoretical')
 plt.xlabel('Time (s)', fontsize=12)
 plt.ylabel('Z Position', fontsize=12)
 plt.title('Free Fall of a Single Particle', fontsize=14)
 plt.legend()
 plt.grid(True)
-# # Save the plot instead of showing it (better for WSL/Makefiles)
 plt.savefig('free_fall_plot.png')
+# Creating error plot
+error = np.sqrt(np.sum((z_positions- z_positions_theo)**2)/len(z_positions_theo))
+print("RMS error is ", error)
+plt.figure(figsize=(8, 6))
+plt.plot(time_array_theo,np.abs(z_positions_theo-z_positions),label = 'Mod of error plot')
+plt.xlabel('Time (s)', fontsize=12)
+plt.ylabel('Mod error', fontsize=12)
+plt.title(f'Error plot RMS error = {error}', fontsize=14)
+plt.legend()
+plt.grid(True)
+# # Save the plot instead of showing it (better for WSL/Makefiles)
+plt.savefig('free_fall_error_plot.png')
+## Calculating Root mean square error ##
 ######################################
+
 # creating Kinetic energy plot 
 with open("kinetic.txt",'r') as f:
      lines = f.readlines()

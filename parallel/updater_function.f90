@@ -3,8 +3,13 @@ subroutine updater_function(pos,vel,force)
     use constants
     implicit none
     real(kind = wp), dimension(3,N), intent(inout) :: pos, vel, force
-    vel = vel + (force/mass)*dt ! for semi - implicit vel must be updated first
-    pos = pos + vel*dt ! pos updated using the updated velocity
+    integer :: i
+    !$omp do 
+    do i = 1,N
+    vel(:,i) = vel(:,i) + (force(:,i)/mass)*dt ! for semi - implicit vel must be updated first
+    pos(:,i) = pos(:,i) + vel(:,i)*dt ! pos updated using the updated velocity
+    end do
+    !$omp end do
     !### updating force ###
     call calc_force(pos,vel,force)
 end subroutine updater_function
