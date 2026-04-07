@@ -50,4 +50,6 @@ It is advised to use `make clean` for each new try to delete the .o , .exe files
 PYTHON = ../simulator/bin/python3
 ```
 
+Python implementation is also available in the serial code directory using both matplotlib and OVITO.
+
 
