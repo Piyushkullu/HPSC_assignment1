@@ -44,4 +44,10 @@ It is advised to use `make clean` for each new try to delete the .o , .exe files
  The improved version fixed this problem by having the threads initialised before the main body loop and then use them once parallel work is encountered. Correspondigly the `!$omp parallel do` statement in `calc_force` is changed to `!$omp do`.
 
  Other subroutines and parts of the code have negligible time consumptions as compared to the `calc_force` subroutine thus focus was only placed on optimising it.
+ ## Note
+ In order to run free fall simulations the user needs to have python3 environment named simulator in the home directory. The path can be changed by editing the make file line
+ ```bash
+PYTHON = ../simulator/bin/python3
+```
+
 
